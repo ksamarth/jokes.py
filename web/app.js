@@ -381,7 +381,7 @@
   }
 
   async function init() {
-    const res = await fetch("data/words.json");
+    const res = await fetch("data/words.json?v=2");
     const data = await res.json();
     const info = puzzleInfoFor(data);
     const dictionary = new Set(data.dictionary);
