@@ -230,7 +230,7 @@
 
   function buildShareText() {
     const steps = game.ladder.length - 1;
-    const lines = [`Elpoop #${game.puzzleNumber} ${steps}/${game.par}`, ""];
+    const lines = [`elpoop #${game.puzzleNumber} ${steps}/${game.par}`, ""];
     game.ladder.forEach((word) => {
       let row = "";
       for (let i = 0; i < 4; i++) {
@@ -350,7 +350,7 @@
     }
     stats.history.forEach((h) => {
       const li = document.createElement("li");
-      li.innerHTML = `<span>Elpoop #${h.puzzleNumber}</span><span>${h.steps}/${h.par}</span>`;
+      li.innerHTML = `<span>elpoop #${h.puzzleNumber}</span><span>${h.steps}/${h.par}</span>`;
       els.statsHistory.appendChild(li);
     });
   }
@@ -410,7 +410,7 @@
       draft: "",
     };
 
-    els.puzzleNumber.textContent = `Elpoop #${game.puzzleNumber}`;
+    els.puzzleNumber.textContent = `elpoop #${game.puzzleNumber}`;
     els.targetWord.textContent = game.target.toUpperCase();
     els.parValue.textContent = game.par;
 
