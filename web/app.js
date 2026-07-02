@@ -6,15 +6,12 @@
   const MS_PER_DAY = 86400000;
 
   const els = {
-    puzzleNumber: document.getElementById("puzzle-number"),
-    targetWord: document.getElementById("target-word"),
+    subtitle: document.getElementById("subtitle"),
     board: document.getElementById("board"),
     toast: document.getElementById("toast"),
     undoBtn: document.getElementById("undo-btn"),
-    parValue: document.getElementById("par-value"),
     keyboard: document.getElementById("keyboard"),
     winPanel: document.getElementById("win-panel"),
-    winTitle: document.getElementById("win-title"),
     winSummary: document.getElementById("win-summary"),
     winGrid: document.getElementById("win-grid"),
     shareBtn: document.getElementById("share-btn"),
@@ -256,10 +253,9 @@
 
   function showWinPanel() {
     const steps = game.ladder.length - 1;
-    els.winTitle.textContent = `You reached ${game.target.toUpperCase()}!`;
     const relation =
       steps < game.par ? "Under par, nice!" : steps === game.par ? "Right on par." : "Over par, but you made it.";
-    els.winSummary.textContent = `${steps} step${steps === 1 ? "" : "s"} (par ${game.par}). ${relation}`;
+    els.winSummary.textContent = `Solved in ${steps}/${game.par}. ${relation}`;
     renderWinGrid();
     startCountdown();
     els.winPanel.classList.remove("hidden");
@@ -410,9 +406,7 @@
       draft: "",
     };
 
-    els.puzzleNumber.textContent = `elpoop #${game.puzzleNumber}`;
-    els.targetWord.textContent = game.target.toUpperCase();
-    els.parValue.textContent = game.par;
+    els.subtitle.textContent = `#${game.puzzleNumber}: ${game.target.toUpperCase()} · par ${game.par}`;
 
     buildKeyboard();
     document.addEventListener("keydown", onPhysicalKey);

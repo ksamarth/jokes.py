@@ -27,6 +27,14 @@ MAX_PAR = 9
 TARGET_POOL_SIZE = 500
 SHUFFLE_SEED = 20260702
 
+# Common informal/modern words that ENABLE1 lacks but players expect to work.
+ADDITIONS = {
+    "boop", "blog", "bork", "burb", "derp", "doot", "faff", "glam", "grok",
+    "guac", "jank", "meep", "meme", "mosh", "naff", "nerf", "newb", "noob",
+    "nano", "mega", "giga", "poot", "sesh", "spam", "vape", "vlog", "welp",
+    "wiki", "yeet", "yolo",
+}
+
 # Words that shouldn't appear as guesses or, especially, as daily targets.
 BLOCKLIST = {
     "anal", "anus", "arse", "clit", "cock", "crap", "cunt", "dago", "dick",
@@ -82,7 +90,7 @@ def bfs_distances(graph, start):
 
 
 def main():
-    enable_4 = {w for w in load_words(ENABLE_PATH, 4, 4)} - BLOCKLIST
+    enable_4 = ({w for w in load_words(ENABLE_PATH, 4, 4)} | ADDITIONS) - BLOCKLIST
     enable_4.add(START)
     assert START in enable_4
 
