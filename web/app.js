@@ -113,6 +113,17 @@
       );
       activeRow.classList.add("active");
       els.board.appendChild(activeRow);
+
+      // The goal, pinned at the bottom of the ladder in white tiles.
+      const goalRow = document.createElement("div");
+      goalRow.className = "row goal-row";
+      for (const ch of target) {
+        const tile = document.createElement("div");
+        tile.className = "tile goal";
+        tile.textContent = ch;
+        goalRow.appendChild(tile);
+      }
+      els.board.appendChild(goalRow);
     }
 
     els.board.scrollTop = els.board.scrollHeight;
@@ -142,8 +153,7 @@
   }
 
   function shakeActiveRow() {
-    const rows = els.board.querySelectorAll(".row");
-    const active = rows[rows.length - 1];
+    const active = els.board.querySelector(".row.active");
     if (!active) return;
     active.classList.remove("shake");
     void active.offsetWidth;
