@@ -160,34 +160,39 @@
     active.classList.add("shake");
   }
 
+  // Reject the current draft: toast + shake, and clear it so the player can
+  // retype right away. The rejected letters stay on screen through the shake
+  // and vanish afterwards (unless new typing has already replaced them).
+  function rejectDraft(msg) {
+    showToast(msg);
+    shakeActiveRow();
+    game.draft = "";
+    setTimeout(() => {
+      if (game.status === "playing" && game.draft === "") {
+        renderBoard();
+      }
+    }, 380);
+  }
+
   function submitDraft() {
     const guess = game.draft.toLowerCase();
     const prev = game.ladder[game.ladder.length - 1];
 
     if (guess.length !== 4) {
-      showToast("Enter 4 letters");
-      shakeActiveRow();
+      rejectDraft("Enter 4 letters");
       return;
     }
     if (!game.dictionary.has(guess)) {
-      showToast("Not in word list");
-      shakeActiveRow();
+      rejectDraft("Not in word list");
       return;
     }
     const positions = diffPositions(prev, guess);
     if (positions.length === 0) {
-      showToast("Change a letter first");
-      shakeActiveRow();
+      rejectDraft("Change a letter first");
       return;
     }
     if (positions.length > 1) {
-      showToast("Change exactly one letter");
-      shakeActiveRow();
-      return;
-    }
-    if (game.ladder.includes(guess)) {
-      showToast("Already used that word");
-      shakeActiveRow();
+      rejectDraft("Change exactly one letter");
       return;
     }
 
